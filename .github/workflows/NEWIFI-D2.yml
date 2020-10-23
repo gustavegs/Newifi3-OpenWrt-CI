@@ -3,11 +3,11 @@
 # 
 # Copyright (C) 2019 P3TERX <https://p3terx.com>
 # Copyright (C) 2019 KFERMercer <KFER.Mercer@gmail.com>
-# Copyright (C) 2020 LemoFire <https://www.ito.fun>
+# Copyright (C) 2020 LeapLu <https://www.ito.fun>
 #
 # <https://github.com/P3TERX/Actions-OpenWrt> 
 # <https://github.com/KFERMercer/OpenWrt-CI>
-# <https://github.com/LemoFire/autoOpenWrt>
+# <https://github.com/leaplu/autoOpenWrt>
 #
 
 name: NEWIFI-D2
@@ -39,13 +39,35 @@ jobs:
         run: |
           git clone https://github.com/coolsnowwolf/lede
           mv ./lede/* ./
-      - name: Install addons
+      - name: Install addons #aliddns
         run: |
           echo "src-git helloworld https://github.com/fw876/helloworld" >> ./feeds.conf.default 
           cd package
           mkdir openwrt-packages
           cd openwrt-packages
-          git clone https://github.com/LemoFire/luci-app-aliddns.git
+          git clone https://github.com/honwen/luci-app-aliddns.git
+      - name: Install addons #OpenAppFilter
+        run: |
+          cd package
+          cd openwrt-packages
+          git clone https://github.com/destan19/OpenAppFilter.git
+      - name: Install addons #OpenClash
+        run: |
+          cd package
+          cd openwrt-packages
+          git clone https://github.com/vernesong/OpenClash.git
+      - name: Install addons #下载最新的argon主题
+        run: |
+          cd package
+          cd openwrt-packages
+          rm -rf luci-theme-argon
+          git clone https://github.com/jerrykuku/luci-theme-argon.git
+      - name: Install addons #helloworld
+        run: |
+          cd package
+          cd openwrt-packages
+          git clone https://github.com/jerrykuku/lua-maxminddb.git
+          git clone https://github.com/jerrykuku/luci-app-vssr.git
       - name: Update feeds
         run: |
           ./scripts/feeds update -a
@@ -67,30 +89,39 @@ jobs:
           # IPv6
           CONFIG_PACKAGE_dnsmasq_full_dhcpv6=y
           CONFIG_PACKAGE_ipv6helper=y
+          
+          # Themes
+          CONFIG_PACKAGE_luci-theme-argon=y
+          # CONFIG_PACKAGE_luci-theme-bootstrap=y
+          # CONFIG_PACKAGE_luci-theme-freifunk-generic=y
+          # CONFIG_PACKAGE_luci-theme-material=y
+          CONFIG_PACKAGE_luci-theme-netgear=y
+          # end of Themes
 
           # USB support
           ONFIG_PACKAGE_kmod-usb-core=y
+          CONFIG_PACKAGE_kmod-usb-ohci=y
+          CONFIG_PACKAGE_kmod-usb-ohci-pci=y
+          CONFIG_PACKAGE_kmod-usb2=y
+          CONFIG_PACKAGE_kmod-usb2-pci=y
           CONFIG_PACKAGE_kmod-usb3=y
-          CONFIG_PACKAGE_kmod-usb-storage=y
-          CONFIG_PACKAGE_kmod-usb-storage-extras=y
-          CONFIG_PACKAGE_automount=y
-          
-          # Filesystem
-          CONFIG_PACKAGE_kmod-fs-exfat=y
-          CONFIG_PACKAGE_kmod-fs-ext4=y
-          CONFIG_PACKAGE_kmod-fs-ntfs=y
-          
+          # CONFIG_PACKAGE_kmod-usb-net=y
+          # CONFIG_PACKAGE_kmod-usb-printer=y
+
           # APP
           CONFIG_PACKAGE_luci-app-aliddns=y
-          CONFIG_PACKAGE_luci-app-aria2=y
           CONFIG_PACKAGE_luci-app-frpc=y
           CONFIG_PACKAGE_luci-app-frps=y
           CONFIG_PACKAGE_luci-app-hd-idle=y
-          # CONFIG_PACKAGE_luci-app-mwan3=y
-          # CONFIG_PACKAGE_luci-app-mwan3helper=y
+          CONFIG_DEFAULT_luci-app-music-remote-center=y
+          CONFIG_PACKAGE_luci-app-mwan3=y
+          CONFIG_PACKAGE_luci-app-mwan3helper=y
           CONFIG_PACKAGE_luci-app-openvpn=y
           CONFIG_PACKAGE_luci-app-openvpn-server=y
-          CONFIG_PACKAGE_luci-app-samba=y
+          CONFIG_PACKAGE_luci-app-oaf=y
+          CONFIG_PACKAGE_luci-app-openclash=y
+          CONFIG_PACKAGE_luci-app-vssr=y
+          CONFIG_PACKAGE_luci-app-sqm=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Kcptun=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Shadowsocks=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ShadowsocksR_Server=y
@@ -99,19 +130,31 @@ jobs:
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Trojan=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_V2ray=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_V2ray_plugin=y
-          # CONFIG_PACKAGE_luci-app-syncdial=y
+          CONFIG_PACKAGE_luci-app-syncdial=y
           CONFIG_PACKAGE_luci-app-ttyd=y
-          # CONFIG_PACKAGE_luci-app-usb-printer=y
+          CONFIG_PACKAGE_luci-app-usb-printer=y
+          CONFIG_PACKAGE_luci-app-unblockneteasemusic-mini=y
+          CONFIG_PACKAGE_luci-app-guest-wifi =y
           CONFIG_PACKAGE_luci-app-xlnetacc=y
 
-          # Open source WIFI driver
-          CONFIG_PACKAGE_kmod-mt7603=y
-          CONFIG_PACKAGE_kmod-mt7603e=n
-          CONFIG_PACKAGE_kmod-mt76x2=y
-          CONFIG_PACKAGE_kmod-mt76x2e=n
-          CONFIG_PACKAGE_hostapd-common=y
-          CONFIG_PACKAGE_wpad-openssl=y
-          CONFIG_PACKAGE_luci-app-mtwifi=n
+          # APP lang
+          CONFIG_PACKAGE_luci-i18n-hd-idle-zh-cn=y
+          CONFIG_PACKAGE_luci-i18n-mwan3-zh-cn=y
+          CONFIG_PACKAGE_luci-i18n-mwan3helper-zh-cn=y
+          CONFIG_PACKAGE_luci-i18n-openvpn-server-zh-cn=y
+          CONFIG_PACKAGE_luci-i18n-openvpn-zh-cn=y
+          CONFIG_PACKAGE_luci-i18n-usb-printer-zh-cn=y
+
+          # Network adapter
+          CONFIG_PACKAGE_kmod-mt7601u=y
+          CONFIG_PACKAGE_kmod-rtl8192cu=y
+          CONFIG_PACKAGE_kmod-rtl8xxxu=y
+          CONFIG_PACKAGE_kmod-usb-net-rtl8152=y
+
+
+          
+          # frp
+          # CONFIG_PACKAGE_frp=y
           
           EOF
           
@@ -129,5 +172,5 @@ jobs:
       - name : Upload artifact
         uses: actions/upload-artifact@master
         with:
-          name: OpenWrt-newifi-d2
-          path: bin/targets/ramips/mt7621/openwrt-ramips-mt7621-d-team_newifi-d2-squashfs-sysupgrade.bin
+          name: OpenWrt firmware
+          path: bin/targets
