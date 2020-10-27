@@ -56,12 +56,6 @@ jobs:
           cd package
           cd openwrt-packages
           git clone https://github.com/vernesong/OpenClash.git
-      - name: Install addons #下载最新的argon主题
-        run: |
-          cd package
-          cd openwrt-packages
-          rm -rf luci-theme-argon
-          git clone https://github.com/jerrykuku/luci-theme-argon.git
       - name: Install addons #helloworld
         run: |
           cd package
