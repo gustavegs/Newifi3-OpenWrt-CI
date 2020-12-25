@@ -10,7 +10,7 @@
 # <https://github.com/leaplu/autoOpenWrt>
 #
 
-name: LEDE x86
+name: Newifi3 d2
 
 on:
   push:
@@ -73,14 +73,9 @@ jobs:
           touch ./.config
           cat >> .config <<EOF
           # Device type
-          CONFIG_TARGET_x86=y
-          CONFIG_TARGET_x86_64=y
-          CONFIG_TARGET_x86_64_Generic=y
-          CONFIG_PACKAGE_grub2-efi=y
-          CONFIG_EFI_IMAGES=y
-          CONFIG_TARGET_IMAGES_GZIP=y
-          CONFIG_TARGET_KERNEL_PARTSIZE=16
-          CONFIG_TARGET_ROOTFS_PARTSIZE=300
+          CONFIG_TARGET_ramips=y
+          CONFIG_TARGET_ramips_mt7621=y
+          CONFIG_TARGET_ramips_mt7621_DEVICE_d-team_newifi-d2=y
 
           # Gzip
           CONFIG_TARGET_IMAGES_GZIP=y
