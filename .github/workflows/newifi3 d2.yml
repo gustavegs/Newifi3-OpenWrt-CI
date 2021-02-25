@@ -17,7 +17,7 @@ on:
     branches: 
       - master
   schedule:
-    - cron: 0 */12 * * *
+    - cron: 0 */18 * * *
 
 jobs:
   build:
@@ -136,8 +136,8 @@ jobs:
           CONFIG_PACKAGE_luci-i18n-hd-idle-zh-cn=y
           CONFIG_PACKAGE_luci-i18n-mwan3-zh-cn=y
           CONFIG_PACKAGE_luci-i18n-mwan3helper-zh-cn=y
-          # CONFIG_PACKAGE_luci-i18n-openvpn-server-zh-cn=y
-          # CONFIG_PACKAGE_luci-i18n-openvpn-zh-cn=y
+          CONFIG_PACKAGE_luci-i18n-openvpn-server-zh-cn=y
+          CONFIG_PACKAGE_luci-i18n-openvpn-zh-cn=y
           CONFIG_PACKAGE_luci-i18n-usb-printer-zh-cn=y
 
           # Network adapter
