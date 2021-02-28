@@ -72,15 +72,12 @@ jobs:
           rm -f ./.config*
           touch ./.config
           cat >> .config <<EOF
-		  
           # Device type
           CONFIG_TARGET_ramips=y
           CONFIG_TARGET_ramips_mt7621=y
           CONFIG_TARGET_ramips_mt7621_DEVICE_d-team_newifi-d2=y
-		  
           # Gzip
           CONFIG_TARGET_IMAGES_GZIP=y
-		  
           # IPv6
           # CONFIG_PACKAGE_dnsmasq_full_dhcpv6 is not set
           # CONFIG_PACKAGE_ipv6helper is not set
@@ -92,7 +89,6 @@ jobs:
           # CONFIG_PACKAGE_luci-theme-material is not set
           CONFIG_PACKAGE_luci-theme-netgear=y
           # end of Themes
-		  
           # USB support
           CONFIG_PACKAGE_kmod-usb-core=y
           CONFIG_PACKAGE_kmod-usb-ohci=y
@@ -102,7 +98,6 @@ jobs:
           CONFIG_PACKAGE_kmod-usb3=y
           # CONFIG_PACKAGE_kmod-usb-net is not set
           # CONFIG_PACKAGE_kmod-usb-printer  is not set
-		  
           # APP
           # CONFIG_PACKAGE_luci-app-aliddns is not set
           CONFIG_PACKAGE_luci-app-frpc=y
@@ -132,7 +127,6 @@ jobs:
           CONFIG_PACKAGE_luci-app-unblockneteasemusic-mini=y
           # CONFIG_PACKAGE_luci-app-guest-wifi is not set
           # CONFIG_PACKAGE_luci-app-xlnetacc is not set
-		  
           # APP lang
           CONFIG_PACKAGE_luci-i18n-hd-idle-zh-cn=y
           CONFIG_PACKAGE_luci-i18n-mwan3-zh-cn=y
@@ -140,7 +134,6 @@ jobs:
           CONFIG_PACKAGE_luci-i18n-openvpn-server-zh-cn=y
           CONFIG_PACKAGE_luci-i18n-openvpn-zh-cn=y
           CONFIG_PACKAGE_luci-i18n-usb-printer-zh-cn=y
-		  
           # Network adapter
           CONFIG_PACKAGE_kmod-mt7601u=y
           CONFIG_PACKAGE_kmod-rtl8192cu=y
